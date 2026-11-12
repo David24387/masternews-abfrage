@@ -1,13 +1,14 @@
 const SHEET_ID = 'HIER_GOOGLE_SHEET_ID_EINTRAGEN';
 const TAB = 'Antworten';
-const FIELDS = ['printRead','printValue','frequency','length','topics'];
+const FIELDS = ['printRead','printValue','frequency','length','topics','topicsOther'];
 function doPost(e) {
   const lock = LockService.getScriptLock();
   lock.waitLock(10000);
   try {
     const data = JSON.parse(e.postData.contents || '{}');
     const a = data.answers || {};
-    if (FIELDS.some(k => !a[k])) throw new Error('Unvollständige Antwort');
+    if (FIELDS.slice(0,5).some(k => !a[k] || (Array.isArray(a[k]) && !a[k].length))) throw new Error('Unvollständige Antwort');
+    if (Array.isArray(a.topics) && a.topics.includes('Sonstiges') && !String(a.topicsOther || '').trim()) throw new Error('Sonstiges muss erläutert werden');
     const ss = SpreadsheetApp.openById(SHEET_ID);
     let sheet = ss.getSheetByName(TAB);
     if (!sheet) {
