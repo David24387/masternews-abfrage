@@ -1,4 +1,4 @@
-const SHEET_ID = 'HIER_GOOGLE_SHEET_ID_EINTRAGEN';
+const SHEET_ID = '1NDy1mHE-kKjM8f2R-UiFbIrSO9jqeBa7XTLxS7M104A';
 const TAB = 'Antworten';
 const FIELDS = ['printRead','printValue','frequency','length','topics','topicsOther'];
 function doPost(e) {
