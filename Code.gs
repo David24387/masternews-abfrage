@@ -30,3 +30,7 @@ function doPost(e) {
     return ContentService.createTextOutput('OK');
   } finally { lock.releaseLock(); }
 }
+
+function doGet() {
+  return ContentService.createTextOutput('Masternews-Umfrage: Endpunkt aktiv. Antworten werden per POST empfangen.');
+}
